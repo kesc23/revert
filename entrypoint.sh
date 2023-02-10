@@ -4,11 +4,14 @@ set -e
 
 # skip if no /revert
 echo "Checking if contains '/revert' command..."
-(jq -r ".comment.body" "$GITHUB_EVENT_PATH" | grep -E "/revert") || exit 78
+jq -r "" "$GITHUB_EVENT_PATH"
+# (jq -r ".comment.body" "$GITHUB_EVENT_PATH" | grep -E "/revert") || exit 78
 
 # skip if not a PR
 echo "Checking if a PR command..."
-(jq -r ".issue.pull_request.url" "$GITHUB_EVENT_PATH") || exit 78
+# (jq -r ".issue.pull_request.url" "$GITHUB_EVENT_PATH") || exit 78
+
+exit 78
 
 # get the SHA to revert
 COMMIT_TO_REVERT=$(jq -r ".comment.body" "$GITHUB_EVENT_PATH" | cut -c 9-)
